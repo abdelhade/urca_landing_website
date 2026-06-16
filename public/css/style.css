@@ -1,0 +1,230 @@
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --white:  #ffffff;
+            --black:  rgb(48, 93, 128);
+            --gray:   #f7f6f4;
+            --mid:    #9a9690;
+            --accent: #988047;
+            --font:   'Cairo', sans-serif;
+        }
+
+        html, body {
+            height: 100%; width: 100%;
+            overflow: hidden;
+            background: var(--white);
+            color: var(--black);
+            font-family: var(--font);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── CANVAS ── */
+        #bgCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── NAVBAR ── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.5rem 3.5rem;
+            opacity: 0;
+            animation: fadeDown .7s cubic-bezier(.22,1,.36,1) .1s forwards;
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+        .nav-logo  { width: 32px; height: 32px; }
+        .nav-name  {
+            font-size: 1.3rem; font-weight: 900;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--black);
+        }
+
+        .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+        .nav-links a {
+            color: var(--mid); text-decoration: none;
+            font-size: .72rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            transition: color .2s;
+        }
+        .nav-links a:hover { color: var(--black); }
+
+        .nav-btns { display: flex; gap: .8rem; }
+
+        .btn-ghost {
+            padding: .44rem 1.2rem;
+            border: 1px solid rgba(0,0,0,.18); border-radius: 2px;
+            background: transparent; color: var(--black);
+            font-family: var(--font); font-size: .7rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+            transition: background .2s, border-color .2s;
+        }
+        .btn-ghost:hover { background: rgba(0,0,0,.05); border-color: rgba(0,0,0,.35); }
+
+        .btn-fill {
+            padding: .44rem 1.2rem;
+            border: 1px solid var(--black); border-radius: 2px;
+            background: var(--black); color: var(--white);
+            font-family: var(--font); font-size: .7rem; font-weight: 800;
+            letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+            transition: background .2s;
+        }
+        .btn-fill:hover { background: #2a2a2a; }
+
+        /* ════════════════════════════
+           HERO — full screen centered
+        ════════════════════════════ */
+        .hero {
+            position: relative; z-index: 10;
+            width: 100vw; height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* ── label ── */
+        .hero-label {
+            display: inline-flex; align-items: center; gap: .55rem;
+            font-size: .68rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 1.6rem;
+            opacity: 0;
+            animation: fadeUp .6s ease .55s forwards;
+        }
+        .hero-label::before,
+        .hero-label::after {
+            content: ''; width: 20px; height: 1px;
+            background: var(--accent); flex-shrink: 0;
+        }
+
+        /* ── typewriter headline ── */
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 6.5rem);
+            font-weight: 900; line-height: 1.04;
+            letter-spacing: -2px; color: var(--black);
+            margin-bottom: 1.4rem;
+            min-height: 2.3em;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px; height: .85em;
+            background: var(--accent);
+            vertical-align: middle;
+            margin-right: 3px;
+            animation: blink .7s step-end infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* ── desc ── */
+        .hero-desc {
+            font-size: 1rem; font-weight: 400; line-height: 1.85;
+            color: var(--mid); max-width: 500px;
+            margin: 0 auto 2.2rem;
+            opacity: 0; transform: translateY(14px);
+        }
+
+        /* ── CTA ── */
+        .hero-cta {
+            display: flex; align-items: center;
+            justify-content: center; gap: 1rem;
+            opacity: 0; transform: translateY(14px);
+            margin-bottom: 2rem;
+        }
+
+        .btn-cta {
+            padding: .8rem 2.2rem;
+            border: 1px solid var(--black); border-radius: 2px;
+            background: var(--black); color: var(--white);
+            font-family: var(--font); font-size: .8rem; font-weight: 800;
+            letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none;
+            position: relative; overflow: hidden;
+            transition: color .3s;
+        }
+        .btn-cta::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--accent);
+            transform: translateX(101%);
+            transition: transform .38s cubic-bezier(.22,1,.36,1);
+        }
+        .btn-cta:hover::before { transform: translateX(0); }
+        .btn-cta span { position: relative; z-index: 1; }
+        .btn-cta:hover { color: var(--black); }
+
+        .link-ghost {
+            display: flex; align-items: center; gap: .45rem;
+            font-size: .75rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--mid); text-decoration: none;
+            transition: color .2s;
+        }
+        .link-ghost:hover { color: var(--black); }
+        .link-ghost .circ {
+            width: 26px; height: 26px;
+            border: 1px solid rgba(0,0,0,.15); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: border-color .2s, transform .25s;
+        }
+        .link-ghost:hover .circ { border-color: rgba(0,0,0,.5); transform: translateX(-4px); }
+
+        /* ── BIG URCA BEHIND BUTTONS ── */
+        /* .bg-wordmark {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%; transform: translateX(-50%);
+            font-size: clamp(8rem, 22vw, 22rem);
+            font-weight: 900; letter-spacing: -8px;
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(0,0,0,.07);
+            user-select: none; pointer-events: none;
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.6s forwards;
+            z-index: 5;
+        } */
+
+        /* ── TICKER ── */
+        .ticker {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 40px; z-index: 50; overflow: hidden;
+            background: var(--black);
+            display: flex; align-items: center;
+            opacity: 0; animation: fadeIn .5s ease 1.8s forwards;
+        }
+        .ticker-track {
+            display: flex; white-space: nowrap;
+            animation: tickerScroll 24s linear infinite;
+        }
+        .ticker-item {
+            display: inline-flex; align-items: center;
+            gap: 1.2rem; padding: 0 1.8rem;
+            font-size: .66rem; font-weight: 800;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--white);
+        }
+        .ticker-dot {
+            width: 4px; height: 4px; border-radius: 50%;
+            background: var(--accent); display: inline-block;
+        }
+        @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes fadeUp  { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn  { to   { opacity: 1; } }
+
+        /* mobile */
+        @media (max-width: 640px) {
+            .nav { padding: 1.2rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .bg-wordmark { font-size: 25vw; letter-spacing: -3px; }
+        }
+    
